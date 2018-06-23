@@ -11,27 +11,29 @@
 <body>
   <div id="app"></div>
   <script type="text/babel">
+    class HobbyList extends React.Component {
+      render () {
+        const hobbies = ["Music", "Trolling", "Gaming"];
+        const liStyle = {fontSize: '1.5em'};
+        return (
+          <ul>
+                {hobbies.map((h, i) => {
+                  return <li key={i} style={liStyle}>{h}</li>
+                })}
+          </ul>
+        );
+      }
+    }
     class Pet extends React.Component {
       render () {
-        const liStyle = {fontSize: '1.5em'};
         return (
           <div className="card">
             <h2 className="name">Deadmau5</h2>
             <img src="https://yt3.ggpht.com/a-/ACSszfG8jE2xuuTPIhZzxXPMQMtp9DjwzxYRJEizfg=s900-mo-c-c0xffffffff-rj-k-no"
                  alt="Deadmau5 aka Joel" />
             <h5 style={{fontSize: '2em', margin: '2px'}}>Hobbies:</h5>
-            <ul>
-              <li style={liStyle}> Make Music</li>
-              <li style={liStyle}> Troll People</li>
-            </ul>
+            <HobbyList />
           </div>);
-        // const h2 = ReactDOMFactories.h2(null, "Deadmau5");
-        // const img = ReactDOMFactories.img({
-        //   src: "https://yt3.ggpht.com/a-/ACSszfG8jE2xuuTPIhZzxXPMQMtp9DjwzxYRJEizfg=s900-mo-c-c0xffffffff-rj-k-no",
-        //   alt: "Deadmau5 aka Joel"
-        // });
-        
-        // return ReactDOMFactories.div(null, h2, img);
       }
     }
 
