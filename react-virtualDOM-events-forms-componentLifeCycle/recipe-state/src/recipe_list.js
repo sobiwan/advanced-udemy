@@ -12,7 +12,7 @@ class RecipeList extends Component {
 
     render () {
         const {onDelete} = this.props;
-        const recipes = this.props.recipes.map((r, index)=> (
+        const recipes = this.props.recipes.map((r)=> (
             <Recipe key ={r.id} {...r} onDelete={onDelete} />
         ));
 
