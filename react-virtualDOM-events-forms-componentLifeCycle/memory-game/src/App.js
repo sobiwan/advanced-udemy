@@ -40,9 +40,10 @@ class App extends Component {
   }
 
   handleClick(id){
+    console.log(id);
     const mapBoxState = (boxes, idsToChange, newBoxState) =>{
       return boxes.map(b => {
-        if (idsToChange.includes(b,id)){
+        if (idsToChange.includes(b.id)){
           return {
             ...b,
             boxState: newBoxState
@@ -96,22 +97,24 @@ class App extends Component {
         boxState: BoxState.HIDING
       }));
       boxes = shuffle(boxes);
-      this.setState = ({boxes});
+      this.setState({boxes});
   }
 
   render() {
-    const boxes = this.state.boxes.map((box)=>(
+    const boxes = this.state.boxes.map((box)=>{
+      return (
       <Box 
         key ={box.id}
         backgroundColor={box.backgroundColor}
         showing={box.boxState !== BoxState.HIDING}
         onClick={()=>this.handleClick(box.id)}
       />
-    ));
+    )}
+  );
 
     return (
       <div className="App">
-        <Navbar onNewGame={this.handleNewGame}/>
+        <Navbar onNewGame={this.handleNewGame.bind(this)}/>
         {boxes}
       </div>
     );
