@@ -13,7 +13,6 @@ const Box = props => {
              style={style}
              onClick={props.onClick}
             /> 
-            
       )
 };
 
