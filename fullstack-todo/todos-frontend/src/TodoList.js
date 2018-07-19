@@ -44,7 +44,6 @@ componentWillMount(){
     this.setState({todos: todos});
  }
  
-
  render() {
      const todos = this.state.todos.map((t) => (
          <TodoItem 
