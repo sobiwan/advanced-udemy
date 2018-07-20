@@ -3,44 +3,60 @@
 //Way to Change State
 
 const initialState ={
-    count: 0
+    todos: [],
+    id: 0
 }
 
 function rootReducer(state=initialState, action){
     switch (action.type){
-        case "INCREMENT":
-            var newState = {...state}
-            newState.count++
-            return newState
-        case "DECREMENT":
-            var newState = {...state}
-            newState.count--
-            return newState
+        case 'ADD_TODO':
+            //add a todo
+            var newState = {...state};
+            newState.id++
+            return{
+                ...newState,
+                todos: [...newState.todos, {task: action.task, id: newState.id}]
+            };
+        case 'REMOVE_TODO':
+            //remove todo
+            let todos = state.todos.filter(val => val.id !== +action.id);
+            return {...state, todos};
         default:
             return state
     }
 }
 
-const store = Redux.createStore(rootReducer)
+const store = Redux.createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 $(document).ready(function(){
-    let currentState = store.getState();
-    $("#counter").text(currentState.count)
-
-    $("#increment").on("click", function(){
-        //dispact some action to increment the count
+    $("ul").on("click", "button", function(e){
         store.dispatch({
-            type: "INCREMENT"
+            type: "REMOVE_TODO",
+            id: $(e.target).attr("id")
         });
-        let currentState = store.getState();
-        $("#counter").text(currentState.count)
+        $(e.target)
+         .parent()
+         .remove();
     })
-    $("#decrement").on("click", function(){
-        //dispact some action to decrement the count
+
+    $("form").on("submit", function(event){
+        event.preventDefault();
+        let newTask = $("#task").val()
         store.dispatch({
-            type: "DECREMENT"
+            type: "ADD_TODO",
+            task: newTask
         });
         let currentState = store.getState();
-        $("#counter").text(currentState.count)
+        let $newLi = $("<li>", {
+            text: newTask
+        });
+        let $newButton = $("<button>", {
+            text: "X",
+            id: currentState.id
+        })
+        $newLi.append($newButton);
+        $("#todos").append($newLi)
+        $("form").trigger("reset");
     })
 });
