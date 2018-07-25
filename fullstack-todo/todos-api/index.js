@@ -14,6 +14,8 @@ app.get('/', function(req, res){
     res.sendFile("index.html");
 });
 
+app.use();
+
 app.use('/api/todos', todoRoutes)
 
 app.listen(port, function(){

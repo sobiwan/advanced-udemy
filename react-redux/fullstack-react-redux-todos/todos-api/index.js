@@ -14,6 +14,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 
+app.get('/', function(req, res){
+    res.sendFile("index.html");
+});
+
+app.use('/api/todos', todoRoutes)
+
+
 // app.use(function(req, res, next){
 //     let err = new Error ("Not Found");
 //     err.status = 404;
@@ -27,12 +34,6 @@ app.use(express.static(__dirname + '/views'));
 //         error: err
 //     })
 // });
-
-app.get('/', function(req, res){
-    res.sendFile("index.html");
-});
-
-app.use('/api/todos', todoRoutes)
 
 app.listen(port, function(){
     console.log("app is running on PORT " + port);
